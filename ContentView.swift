@@ -19,7 +19,7 @@ struct ContentView: View {
         VStack {
             Button("Click Me"){
                 let startTime = NSDate()
-                Thread.sleep(forTimeInterval: 10)
+//                Thread.sleep(forTimeInterval: 10)
                 callFunction()
                 let endTime = NSDate()
                 message = "Completed in \(endTime.timeIntervalSince(startTime as Date)) seconds"
@@ -31,6 +31,7 @@ struct ContentView: View {
     }
     
     func doSomething() async throws -> Response{
+        Thread.sleep(forTimeInterval: 10)
         return Response.success
     }
     
