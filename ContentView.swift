@@ -8,14 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var message = ""
+    @State var sliderValue = 0.0
+    
+    enum Response{
+        case success
+    }
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Button("Click Me"){
+                let startTime = NSDate()
+                Thread.sleep(forTimeInterval: 10)
+                callFunction()
+                let endTime = NSDate()
+                message = "Completed in \(endTime.timeIntervalSince(startTime as Date)) seconds"
+            }
+            Spacer()
+            Slider(value: $sliderValue)
+            Text("Message = \(message)")
         }
-        .padding()
+    }
+    
+    func doSomething() async throws -> Response{
+        return Response.success
+    }
+    
+    func callFunction(){
+        Task(priority: .high){
+            do{
+                _ = try await doSomething()
+            }catch{
+                //
+            }
+        }
     }
 }
 
